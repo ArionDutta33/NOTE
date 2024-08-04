@@ -45,9 +45,10 @@ const Home = () => {
           },
         }}
         contentLabel=""
-        className=""
-      ></Modal>
-      <AddEditNotes />
+        className="w-[40%] max-h-3/4 bg-white rounded-md mx-auto mt-14 overflow-scroll"
+      >
+        <AddEditNotes />
+      </Modal>
     </>
   );
 };
