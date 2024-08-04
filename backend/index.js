@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
 })
 
 //create
-app.post("/create-account", async (req, res) => {
+app.post("/create-account", authenticateToken, async (req, res) => {
     const { fullname, email, password } = req.body
     if (!fullname) return res.status(400).json({ error: true, message: "fullname is required" })
     if (!email) return res.status(400).json({ error: true, message: "Email is required" })
@@ -80,7 +80,19 @@ app.post("/login", async (req, res) => {
 
 
 })
+app.get("/get-user", async (req, res) => {
 
+    const { user } = req.user
+    const isUser = await userModel.findOne({ _id: userId });
+    if (!isUser) {
+        return res.sendStatus(401);
+    }
+    return res.json({
+        user: { fullname: isUser.fullname, email: isUser.email, "_id": isUser._id, createdOn: isUser.createdOn },
+        message: ""
+
+    });
+})
 app.post("/add-note", authenticateToken, async (req, res) => {
     const { title, content, tags } = req.body
     const { user } = req.user
@@ -207,3 +219,5 @@ app.put("/update-note-pinned/:noteId", authenticateToken, async (req, res) => {
 app.listen(3000, () => {
     console.log("server running")
 })
+
+module.exports = app;
