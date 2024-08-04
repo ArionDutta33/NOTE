@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken")
-function autheticateToken(req, res, next) {
-    const authUser = req.headers("authorization")
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers["authorization"]
     const token = authHeader && authHeader.split(" ")[1]
     if (!token) return res.sendStatus(401)
     jwt.verify(token, "secret", (err, user) => {
@@ -11,5 +11,5 @@ function autheticateToken(req, res, next) {
 }
 
 module.exports = {
-    autheticateToken
+    authenticateToken
 }
