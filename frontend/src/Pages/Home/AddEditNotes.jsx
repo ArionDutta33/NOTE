@@ -1,3 +1,6 @@
+import TagInput from "../../Components/Input/TagInput";
+
+TagInput;
 const AddEditNotes = () => {
   return (
     <div>
@@ -21,8 +24,7 @@ const AddEditNotes = () => {
 
       <div className="mt-3">
         <label htmlFor="" className="input-label">
-          {" "}
-          TAGS
+          <TagInput /> TAGS
         </label>
       </div>
 
