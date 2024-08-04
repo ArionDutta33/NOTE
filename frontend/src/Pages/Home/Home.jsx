@@ -35,19 +35,39 @@ const Home = () => {
       >
         <MdAdd className="text-[32px] text-white" />
       </button>
-
       <Modal
         isOpen={openAddEditModal.isShown}
-        onRequestClose={() => {}}
+        onRequestClose={() =>
+          setOpenAddEditModal({ isShown: false, type: "", data: null })
+        }
         style={{
           overlay: {
-            backgroundColor: "rgba(0,0,0,0,0.2)",
+            backgroundColor: "rgba(0, 0, 0, 0.5)", // Darker overlay
+            zIndex: 1000, // Ensure it sits above other content
+          },
+          content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            maxHeight: "80vh", // Ensure modal height is within viewport
+            padding: "20px", // Add padding
+            borderRadius: "8px", // Rounded corners
+            backgroundColor: "#fff", // Background color
+            width: "60%", // Width of the modal
+            overflow: "auto", // Enable scrolling if content is too long
           },
         }}
         contentLabel=""
-        className="w-[40%] max-h-3/4 bg-white rounded-md mx-auto mt-14 overflow-scroll"
       >
-        <AddEditNotes />
+        <AddEditNotes
+          type={openAddEditModal.type}
+          noteData={openAddEditModal.data}
+          onClose={() => {
+            setOpenAddEditModal({ isShown: false, type: "add", data: null });
+          }}
+        />
       </Modal>
     </>
   );
